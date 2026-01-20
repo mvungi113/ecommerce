@@ -1,0 +1,23 @@
+# Basic packages
+flutter pub add provider
+flutter pub add shimmer
+flutter pub add cached_network_image
+flutter pub add intl
+flutter pub add animations
+flutter pub add flutter_staggered_animations
+
+# For better icons
+flutter pub add flutter_svg
+flutter pub add font_awesome_flutter
+
+# For carousel and indicators
+flutter pub add carousel_slider
+flutter pub add smooth_page_indicator
+
+# For badges and like animations
+flutter pub add badges
+flutter pub add like_button
+
+# Dev dependencies
+flutter pub add dev:build_runner
+flutter pub add dev:json_serializable
