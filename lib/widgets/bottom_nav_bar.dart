@@ -27,29 +27,41 @@ class CustomBottomNavBar extends StatelessWidget {
             icon: 'assets/icons/home.svg',
             label: 'Home',
             isSelected: selectedIndex == 0,
-            onTap: () {
-              Navigator.pushNamed(context, '/home');
-            },
+            onTap: () => Navigator.pushNamedAndRemoveUntil(
+              context,
+              '/home',
+              (route) => false,
+            ),
           ),
           _NavBarItem(
             icon: 'assets/icons/category.svg',
             label: 'Categories',
             isSelected: selectedIndex == 1,
-            onTap: () {},
+            onTap: () => Navigator.pushNamedAndRemoveUntil(
+              context,
+              '/categories',
+              (route) => false,
+            ),
           ),
           _NavBarItem(
             icon: 'assets/icons/cart.svg',
             label: 'Cart',
             isSelected: selectedIndex == 2,
-            onTap: () {
-              Navigator.pushNamed(context, '/cart');
-            },
+            onTap: () => Navigator.pushNamedAndRemoveUntil(
+              context,
+              '/cart',
+              (route) => false,
+            ),
           ),
           _NavBarItem(
             icon: 'assets/icons/profile.svg',
             label: 'Profile',
             isSelected: selectedIndex == 3,
-            onTap: () {},
+            onTap: () => Navigator.pushNamedAndRemoveUntil(
+              context,
+              '/profile',
+              (route) => false,
+            ),
           ),
         ],
       ),

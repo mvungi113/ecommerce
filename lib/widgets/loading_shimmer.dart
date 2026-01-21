@@ -29,15 +29,11 @@ class CategoryShimmer extends StatelessWidget {
             height: 60,
             decoration: BoxDecoration(
               color: Colors.white,
-              borderRadius: BorderRadius.circular(15)
+              borderRadius: BorderRadius.circular(15),
             ),
           ),
-          const SizedBox(height: 8,),
-          Container(
-            width: 40,
-            height: 10,
-            color: Colors.white,
-          )
+          const SizedBox(height: 8),
+          Container(width: 40, height: 10, color: Colors.white),
         ],
       ),
     );

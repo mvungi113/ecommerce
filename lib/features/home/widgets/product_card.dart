@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:like_button/like_button.dart';
 
-
 import '../../../models/product.dart';
 import '../../../widgets/loading_shimmer.dart';
 

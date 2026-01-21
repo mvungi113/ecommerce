@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'features/cart/cart_screen.dart';
+import 'features/categories/categories_screen.dart';
+import 'features/checkout/checkout_screen.dart';
 import 'features/home/home_screen.dart';
+import 'features/profile/profile_screen.dart';
+import 'features/search/search_screen.dart';
 import 'models/product.dart';
 import 'app/theme/app_theme.dart';
 
@@ -25,6 +29,10 @@ class MyApp extends StatelessWidget {
         routes: {
           '/cart': (context) => const CartScreen(),
           '/home': (context) => const HomeScreen(),
+          '/categories': (context) => const CategoriesScreen(),
+          '/profile': (context) => const ProfileScreen(),
+          '/search': (context) => const SearchScreen(),
+          '/checkout': (context) => const CheckoutScreen(),
         },
       ),
     );
