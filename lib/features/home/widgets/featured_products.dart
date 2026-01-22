@@ -24,7 +24,9 @@ class FeaturedProducts extends StatelessWidget {
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(context, '/categories');
+                },
                 child: const Text(
                   'See All',
                   style: TextStyle(
@@ -38,7 +40,7 @@ class FeaturedProducts extends StatelessWidget {
         ),
         const SizedBox(height: 16),
         SizedBox(
-          height: 250,
+          height: 290,
           child: AnimationLimiter(
             child: ListView.builder(
               scrollDirection: Axis.horizontal,

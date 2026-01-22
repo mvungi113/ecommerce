@@ -352,11 +352,10 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                 borderRadius: BorderRadius.circular(12),
               ),
               child: IconButton(
-                icon: SvgPicture.asset(
-                  'assets/icons/cart.svg',
-                  width: 24,
-                  height: 24,
-                  color: const Color(0xFF6C63FF),
+                icon: const Icon(
+                  Icons.shopping_cart,
+                  size: 24,
+                  color: Color(0xFF6C63FF),
                 ),
                 onPressed: () {},
               ),
@@ -461,11 +460,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                     },
                   ),
                   child: IconButton(
-                    icon: SvgPicture.asset(
-                      'assets/icons/cart.svg',
-                      width: 24,
-                      height: 24,
-                    ),
+                    icon: const Icon(Icons.shopping_cart, size: 24),
                     onPressed: () {
                       Navigator.pushNamed(context, '/cart');
                     },
@@ -485,11 +480,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
                   ],
                 ),
                 child: IconButton(
-                  icon: SvgPicture.asset(
-                    'assets/icons/share.svg',
-                    width: 24,
-                    height: 24,
-                  ),
+                  icon: const Icon(Icons.share, size: 24),
                   onPressed: () {},
                 ),
               ),

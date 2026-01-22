@@ -31,10 +31,10 @@ class CartScreen extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SvgPicture.asset(
-                    'assets/icons/empty_cart.svg',
-                    width: 150,
-                    height: 150,
+                  Icon(
+                    Icons.shopping_cart_outlined,
+                    size: 150,
+                    color: Colors.grey[300],
                   ),
                   const SizedBox(height: 20),
                   const Text(

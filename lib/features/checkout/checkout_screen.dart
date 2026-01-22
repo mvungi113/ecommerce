@@ -149,11 +149,10 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
               ),
               child: Row(
                 children: [
-                  SvgPicture.asset(
-                    'assets/icons/discount.svg',
-                    width: 24,
-                    height: 24,
-                    color: const Color(0xFF6C63FF),
+                  const Icon(
+                    Icons.discount,
+                    size: 24,
+                    color: Color(0xFF6C63FF),
                   ),
                   const SizedBox(width: 12),
                   const Expanded(

@@ -40,11 +40,7 @@ class HeaderSection extends StatelessWidget {
               style: const TextStyle(color: Colors.white, fontSize: 10),
             ),
             child: IconButton(
-              icon: SvgPicture.asset(
-                'assets/icons/cart.svg',
-                width: 24,
-                height: 24,
-              ),
+              icon: const Icon(Icons.shopping_cart, size: 24),
               onPressed: () {
                 Navigator.pushNamed(context, '/cart');
               },

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 
 import '../../../services/dummy_data.dart';
+import '../../categories/categories_screen.dart';
 
 class CategoryGrid extends StatelessWidget {
   const CategoryGrid({super.key});
@@ -67,30 +68,41 @@ class CategoryItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          width: 60,
-          height: 60,
-          decoration: BoxDecoration(
-            color: category.color.withOpacity(0.1),
-            borderRadius: BorderRadius.circular(15),
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) =>
+                CategoriesScreen(initialCategory: category.name),
           ),
-          child: Center(
-            child: Icon(
-              _getIconData(category.icon),
-              size: 30,
-              color: category.color,
+        );
+      },
+      child: Column(
+        children: [
+          Container(
+            width: 60,
+            height: 60,
+            decoration: BoxDecoration(
+              color: category.color.withOpacity(0.1),
+              borderRadius: BorderRadius.circular(15),
+            ),
+            child: Center(
+              child: Icon(
+                _getIconData(category.icon),
+                size: 30,
+                color: category.color,
+              ),
             ),
           ),
-        ),
-        const SizedBox(height: 8),
-        Text(
-          category.name,
-          style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
-          textAlign: TextAlign.center,
-        ),
-      ],
+          const SizedBox(height: 8),
+          Text(
+            category.name,
+            style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w500),
+            textAlign: TextAlign.center,
+          ),
+        ],
+      ),
     );
   }
 }

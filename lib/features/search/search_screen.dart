@@ -73,6 +73,29 @@ class _SearchScreenState extends State<SearchScreen> {
     super.dispose();
   }
 
+  IconData _getIconData(String iconName) {
+    switch (iconName) {
+      case 'electrical_services':
+        return Icons.electrical_services;
+      case 'fashion':
+        return Icons.checkroom;
+      case 'kitchen':
+        return Icons.kitchen;
+      case 'sports':
+        return Icons.sports_basketball;
+      case 'menu_book':
+        return Icons.menu_book;
+      case 'beauty_services':
+        return Icons.face;
+      case 'toys':
+        return Icons.toys;
+      case 'food':
+        return Icons.restaurant;
+      default:
+        return Icons.category;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -161,11 +184,10 @@ class _SearchScreenState extends State<SearchScreen> {
           const SizedBox(height: 16),
           ..._popularSearches.map((search) {
             return ListTile(
-              leading: SvgPicture.asset(
-                'assets/icons/trending.svg',
-                width: 24,
-                height: 24,
-                color: const Color(0xFF6C63FF),
+              leading: const Icon(
+                Icons.trending_up,
+                size: 24,
+                color: Color(0xFF6C63FF),
               ),
               title: Text(search),
               trailing: const Icon(Icons.arrow_forward_ios, size: 16),
@@ -204,10 +226,9 @@ class _SearchScreenState extends State<SearchScreen> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        SvgPicture.asset(
-                          category.icon,
-                          width: 30,
-                          height: 30,
+                        Icon(
+                          _getIconData(category.icon),
+                          size: 30,
                           color: category.color,
                         ),
                         const SizedBox(height: 8),

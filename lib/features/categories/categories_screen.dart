@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:animations/animations.dart';
 
+import '../../models/product.dart';
 import '../../services/dummy_data.dart';
 import '../product/product_detail_screen.dart';
 import '../../widgets/bottom_nav_bar.dart';
@@ -9,14 +10,16 @@ import 'widgets/category_list_item.dart';
 import 'widgets/filter_sheet.dart';
 
 class CategoriesScreen extends StatefulWidget {
-  const CategoriesScreen({super.key});
+  final String? initialCategory;
+
+  const CategoriesScreen({super.key, this.initialCategory});
 
   @override
   State<CategoriesScreen> createState() => _CategoriesScreenState();
 }
 
 class _CategoriesScreenState extends State<CategoriesScreen> {
-  String _selectedCategory = 'All';
+  late String _selectedCategory;
   final List<String> _sortOptions = [
     'Popular',
     'Newest',
@@ -27,13 +30,19 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
   String _selectedSort = 'Popular';
 
   @override
+  void initState() {
+    super.initState();
+    _selectedCategory = widget.initialCategory ?? 'All';
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Categories'),
         actions: [
           IconButton(
-            icon: SvgPicture.asset('assets/icons/search.svg'),
+            icon: const Icon(Icons.search),
             onPressed: () {
               Navigator.pushNamed(context, '/search');
             },
@@ -94,11 +103,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                         ),
                         child: Row(
                           children: [
-                            SvgPicture.asset(
-                              'assets/icons/filter.svg',
-                              width: 20,
-                              height: 20,
-                            ),
+                            const Icon(Icons.filter_list, size: 20),
                             const SizedBox(width: 8),
                             const Text(
                               'Filter',
@@ -131,11 +136,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                     child: DropdownButtonHideUnderline(
                       child: DropdownButton<String>(
                         value: _selectedSort,
-                        icon: SvgPicture.asset(
-                          'assets/icons/arrow_down.svg',
-                          width: 16,
-                          height: 16,
-                        ),
+                        icon: const Icon(Icons.arrow_drop_down, size: 24),
                         isExpanded: true,
                         items: _sortOptions.map((String value) {
                           return DropdownMenuItem<String>(
@@ -158,23 +159,86 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
 
           // Products Grid
           Expanded(
-            child: GridView.builder(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                crossAxisSpacing: 16,
-                mainAxisSpacing: 16,
-                childAspectRatio: 0.7,
-              ),
-              itemCount: featuredProducts.length,
-              itemBuilder: (context, index) {
-                final product = featuredProducts[index];
-                return OpenContainer(
-                  closedBuilder: (context, action) {
-                    return CategoryListItem(product: product);
-                  },
-                  openBuilder: (context, action) {
-                    return ProductDetailScreen(product: product);
+            child: Builder(
+              builder: (context) {
+                // Filter products based on selected category
+                final filteredProducts = _selectedCategory == 'All'
+                    ? featuredProducts
+                    : featuredProducts
+                          .where(
+                            (product) => product.category == _selectedCategory,
+                          )
+                          .toList();
+
+                // Sort products based on selected sort option
+                final sortedProducts = List<Product>.from(filteredProducts);
+                switch (_selectedSort) {
+                  case 'Price: Low to High':
+                    sortedProducts.sort(
+                      (a, b) => a.finalPrice.compareTo(b.finalPrice),
+                    );
+                    break;
+                  case 'Price: High to Low':
+                    sortedProducts.sort(
+                      (a, b) => b.finalPrice.compareTo(a.finalPrice),
+                    );
+                    break;
+                  case 'Rating':
+                    sortedProducts.sort((a, b) => b.rating.compareTo(a.rating));
+                    break;
+                  case 'Newest':
+                    // Could add a date field to Product model for this
+                    break;
+                  case 'Popular':
+                  default:
+                    sortedProducts.sort(
+                      (a, b) => b.reviews.compareTo(a.reviews),
+                    );
+                    break;
+                }
+
+                if (sortedProducts.isEmpty) {
+                  return Center(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.shopping_bag_outlined,
+                          size: 80,
+                          color: Colors.grey[300],
+                        ),
+                        const SizedBox(height: 16),
+                        Text(
+                          'No products found in $_selectedCategory',
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.grey[600],
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                }
+
+                return GridView.builder(
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 16,
+                    mainAxisSpacing: 16,
+                    childAspectRatio: 0.7,
+                  ),
+                  itemCount: sortedProducts.length,
+                  itemBuilder: (context, index) {
+                    final product = sortedProducts[index];
+                    return OpenContainer(
+                      closedBuilder: (context, action) {
+                        return CategoryListItem(product: product);
+                      },
+                      openBuilder: (context, action) {
+                        return ProductDetailScreen(product: product);
+                      },
+                    );
                   },
                 );
               },
