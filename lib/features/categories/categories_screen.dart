@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:animations/animations.dart';
 
 import '../../models/product.dart';
@@ -28,6 +27,9 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
     'Rating',
   ];
   String _selectedSort = 'Popular';
+  double _minPrice = 0;
+  double _maxPrice = 1000;
+  List<String> _selectedBrands = [];
 
   @override
   void initState() {
@@ -116,7 +118,11 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
                     openBuilder: (context, action) {
                       return FilterSheet(
                         onApply: (minPrice, maxPrice, brands) {
-                          // Apply filters
+                          setState(() {
+                            _minPrice = minPrice;
+                            _maxPrice = maxPrice;
+                            _selectedBrands = brands;
+                          });
                         },
                       );
                     },
@@ -162,13 +168,33 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
             child: Builder(
               builder: (context) {
                 // Filter products based on selected category
-                final filteredProducts = _selectedCategory == 'All'
+                var filteredProducts = _selectedCategory == 'All'
                     ? featuredProducts
                     : featuredProducts
                           .where(
                             (product) => product.category == _selectedCategory,
                           )
                           .toList();
+
+                // Apply price filter
+                filteredProducts = filteredProducts
+                    .where(
+                      (product) =>
+                          product.finalPrice >= _minPrice &&
+                          product.finalPrice <= _maxPrice,
+                    )
+                    .toList();
+
+                // Apply brand filter
+                if (_selectedBrands.isNotEmpty) {
+                  filteredProducts = filteredProducts
+                      .where(
+                        (product) =>
+                            product.brand != null &&
+                            _selectedBrands.contains(product.brand),
+                      )
+                      .toList();
+                }
 
                 // Sort products based on selected sort option
                 final sortedProducts = List<Product>.from(filteredProducts);

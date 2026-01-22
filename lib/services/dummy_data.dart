@@ -39,6 +39,7 @@ List<Product> featuredProducts = [
     rating: 4.5,
     reviews: 128,
     category: 'Electronics',
+    brand: 'Apple',
     isFeatured: true,
     isNew: true,
   ),
@@ -55,6 +56,7 @@ List<Product> featuredProducts = [
     rating: 4.2,
     reviews: 89,
     category: 'Electronics',
+    brand: 'Samsung',
     isFeatured: true,
   ),
   Product(
@@ -68,6 +70,7 @@ List<Product> featuredProducts = [
     rating: 4.7,
     reviews: 256,
     category: 'Sports',
+    brand: 'Nike',
     isFeatured: true,
     isNew: true,
   ),
@@ -81,6 +84,7 @@ List<Product> featuredProducts = [
     rating: 4.3,
     reviews: 67,
     category: 'Fashion',
+    brand: 'Adidas',
     isFeatured: true,
   ),
 ];

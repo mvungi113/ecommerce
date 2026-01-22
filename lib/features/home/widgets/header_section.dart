@@ -2,7 +2,7 @@ import 'package:ecommerce/main.dart' show CartProvider;
 import 'package:flutter/material.dart';
 import 'package:badges/badges.dart' as badges;
 import 'package:provider/provider.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+
 
 class HeaderSection extends StatelessWidget {
   const HeaderSection({super.key});

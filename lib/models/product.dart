@@ -12,6 +12,7 @@ class Product {
   final double rating;
   final int reviews;
   final String category;
+  final String? brand;
   final bool isFeatured;
   final bool isNew;
 
@@ -26,6 +27,7 @@ class Product {
     this.rating = 0.0,
     this.reviews = 0,
     required this.category,
+    this.brand,
     this.isFeatured = false,
     this.isNew = false,
   });
