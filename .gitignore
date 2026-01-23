@@ -50,3 +50,5 @@ macos/
 windows/
 linux/
 build/
+android/
+ios/

@@ -4,6 +4,7 @@ import 'package:animations/animations.dart';
 
 import '../../services/dummy_data.dart';
 import '../../main.dart';
+import '../../providers/auth_provider.dart';
 import 'widgets/address_card.dart';
 import 'widgets/payment_method_card.dart';
 import 'widgets/summary_card.dart';
@@ -221,7 +222,16 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                 height: 50,
                 child: ElevatedButton(
                   onPressed: () {
-                    _showOrderConfirmation();
+                    final authProvider = Provider.of<AuthProvider>(
+                      context,
+                      listen: false,
+                    );
+
+                    if (!authProvider.canMakeOrder()) {
+                      _showGuestLimitationDialog();
+                    } else {
+                      _showOrderConfirmation();
+                    }
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFF6C63FF),
@@ -438,6 +448,34 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
           Text(
             value,
             style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _showGuestLimitationDialog() {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Sign Up Required'),
+        content: const Text(
+          'You need to create an account to place orders. Guest users can browse and add items to cart, but cannot complete purchases.',
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Cancel'),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.pop(context);
+              Navigator.pushNamed(context, '/login');
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: const Color(0xFF6C63FF),
+            ),
+            child: const Text('Sign Up'),
           ),
         ],
       ),
